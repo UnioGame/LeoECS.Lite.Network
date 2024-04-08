@@ -1,0 +1,33 @@
+{
+    "name": "game.ecs.network.commands",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e59bf9fc7d5a44b18a819a92edd46163",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:966f01aff3301cb449a4595679577a3a",
+        "GUID:b10aac27e5bc3d74f9892b100a74487f",
+        "GUID:c1d53fc1b1b71c647b00626be502b7b1",
+        "GUID:29ec3b0531d6fe44ea0b574ce668e73e",
+        "GUID:8e4577c9194c10845984cf27eb974fd1",
+        "GUID:4185675af2c91ce438157b41079cd107",
+        "GUID:734ad187cc97468aafd24e6984ece1fa",
+        "GUID:e06a58708b83247ca9dc984644f5b40b",
+        "GUID:0eed7e3e25b74b20a41d0627c1751049",
+        "GUID:196a49d52c034decaa1749f0088ced82",
+        "GUID:2796129a6c23eb84a8181f62bf7332f1",
+        "GUID:7ed0561e138c428fa4f7e2e1a7de6b18",
+        "GUID:756335c0388f7114790e504ed368ae1d",
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:4f5c0c83dfd6a0743834baba2b4de79e",
+        "GUID:2665a8d13d1b3f18800f46e256720795"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

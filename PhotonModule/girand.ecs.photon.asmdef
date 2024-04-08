@@ -1,0 +1,27 @@
+{
+    "name": "girand.ecs.photon",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e59bf9fc7d5a44b18a819a92edd46163",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:b10aac27e5bc3d74f9892b100a74487f",
+        "GUID:c1d53fc1b1b71c647b00626be502b7b1",
+        "GUID:29ec3b0531d6fe44ea0b574ce668e73e",
+        "GUID:8e4577c9194c10845984cf27eb974fd1",
+        "GUID:831409e8f9d13b5479a3baef9822ad34",
+        "GUID:57c32fc907df0f54e8e6e8f0d2488336",
+        "GUID:e06a58708b83247ca9dc984644f5b40b",
+        "GUID:4185675af2c91ce438157b41079cd107"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "PHOTON_ENABLED"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,26 @@
+{
+  "name": "com.unigame.ecs.network",
+  "author": "UniGame",
+  "displayName": "UniGame Ecs Networking",
+  "description": "Ecs Network Feature",
+  "unity": "2022.1",
+  "version": "2024.0.0",
+  "keywords": [
+    "UniGame",
+    "Modules",
+    "Tools",
+    "ECS"
+  ],
+  "homepage": "https://github.com/UnioGame",
+  "dependencies": {
+    "com.unity.addressables" : "1.21.19",
+    "com.unity.editorcoroutines": "1.0.0",
+    "com.unity.burst": "1.8.12",
+    "com.unity.nuget.newtonsoft-json": "3.2.1",
+    "com.unity.collections" : "2.2.1",
+    "com.cysharp.unitask" : "2.5.4",
+    "com.leopotam.ecslite" : "2023.4.22",
+    "com.unigame.coremodules":"2024.0.0",
+    "com.annulusgames.unity-codegen" : "1.0.0"
+  }
+}

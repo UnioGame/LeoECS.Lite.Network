@@ -1,0 +1,28 @@
+{
+    "name": "game.ecs.network.editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:81d29a5e4682947dfa73ba6bd09fe0be",
+        "GUID:2796129a6c23eb84a8181f62bf7332f1",
+        "GUID:7ed0561e138c428fa4f7e2e1a7de6b18",
+        "GUID:8e4577c9194c10845984cf27eb974fd1",
+        "GUID:756335c0388f7114790e504ed368ae1d",
+        "GUID:e59bf9fc7d5a44b18a819a92edd46163",
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:2665a8d13d1b3f18800f46e256720795",
+        "GUID:d8b63aba1907145bea998dd612889d6b",
+        "GUID:0e63504324aa4191aa39b53740e76a78",
+        "GUID:2b4db8dfaace49bdb5d94bef9f0bdcb8"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

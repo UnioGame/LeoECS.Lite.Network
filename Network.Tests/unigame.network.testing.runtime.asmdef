@@ -1,0 +1,28 @@
+{
+    "name": "unigame.network.testing.runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:2665a8d13d1b3f18800f46e256720795",
+        "GUID:d8b63aba1907145bea998dd612889d6b",
+        "GUID:756335c0388f7114790e504ed368ae1d",
+        "GUID:8e4577c9194c10845984cf27eb974fd1",
+        "GUID:50a8eaa6411c2cd44889bc84466ea969",
+        "GUID:2b4db8dfaace49bdb5d94bef9f0bdcb8",
+        "GUID:fbac0bd11eb64e84a5dd45c314b027c7",
+        "GUID:a03aa6f4c1e44271b68c4b8d9bd02ffe",
+        "GUID:0e63504324aa4191aa39b53740e76a78",
+        "GUID:7ed0561e138c428fa4f7e2e1a7de6b18",
+        "GUID:e59bf9fc7d5a44b18a819a92edd46163",
+        "GUID:0098724e988b8b14d8a97f54d663a398"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
