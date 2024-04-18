@@ -69,7 +69,7 @@
             unsafe
             {
                 var start = writer.WrittenCount;
-                MemoryPackSerializer.Serialize<TValue>(writer, value, MemoryPackSerializerOptions.Utf16);
+                MemoryPackSerializer.Serialize(value, MemoryPackSerializerOptions.Utf16);
                 return writer.WrittenCount - start;
             }
         }

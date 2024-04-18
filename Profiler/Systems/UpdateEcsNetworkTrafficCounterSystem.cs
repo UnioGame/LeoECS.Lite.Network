@@ -1,4 +1,11 @@
-﻿namespace Game.Ecs.Network.Profiler.Systems
+﻿using System;
+using Game.Ecs.Network.NetworkCommands.Aspects;
+using Game.Ecs.Network.NetworkCommands.Components.Events;
+using Game.Ecs.Network.Shared.Profiler;
+using Leopotam.EcsLite;
+using UniGame.LeoEcs.Bootstrap.Runtime.Attributes;
+
+namespace Game.Ecs.Network.Profiler.Systems
 {
     /// <summary>
     /// update profiler counter
@@ -40,8 +47,8 @@
             {
                 ref var dataEvent = ref _messageAspect.DataSendEvent.Get(entity);
 
-                EcsNetworkTrafficCounter.EcsSendTrafficCounter.Value += dataEvent.Size;
-                EcsNetworkTrafficCounter.EcsSendTraffic.Sample(dataEvent.Size);
+                // EcsNetworkTrafficCounter.EcsSendTrafficCounter.Value += dataEvent.Size;
+                // EcsNetworkTrafficCounter.EcsSendTraffic.Sample(dataEvent.Size);
             }
         }
     }
