@@ -18,9 +18,11 @@
     /// <summary>
     /// converter for netcode prefab to ecs world
     /// </summary>
+#if ENABLE_IL2CPP
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
+#endif
     [Serializable]
     public class NetcodeConverter : GameObjectConverter
     {
@@ -38,8 +40,8 @@
             ref var syncValuesComponent = ref world.GetOrAddComponent<NetworkSyncValuesComponent>(entity);
             ref var lifeTimeComponent = ref world.GetOrAddComponent<LifeTimeComponent>(entity);
             
-            unityTransportComponent.Value = this.unityTransport;
-            networkManagerComponent.Value = this.networkManager;
+            unityTransportComponent.Value = unityTransport;
+            networkManagerComponent.Value = networkManager;
             targetComponent.Value = target;
             
             networkTime.Time = networkManager.ServerTime.TimeAsFloat;

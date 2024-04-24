@@ -64,6 +64,7 @@
                 ecsNetworkData.Types[id] = syncType;
                 ecsNetworkData.SyncTypes[id] = BitConverter.GetBytes(id);
                 ecsNetworkData.IdTypeMap[id] = type;
+                // ecsNetworkData.TypesMap.Add(type, id);
                 ecsNetworkData.TypesMap[type] = id;
             }
 
