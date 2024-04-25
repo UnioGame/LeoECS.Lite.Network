@@ -32,6 +32,7 @@
         {
             UnityCodeGenUtility.Generate();
             BakeNetworkData();
+            SetDirty();
         }
         
         [Button]
