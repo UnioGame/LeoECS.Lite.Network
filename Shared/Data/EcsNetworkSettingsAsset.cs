@@ -8,9 +8,9 @@
     using Unity.Collections.LowLevel.Unsafe;
     using UnityEngine;
     using System;
-    using UnityCodeGen;
 
 #if UNITY_EDITOR
+    using UnityCodeGen;
     using UnityEditor;
     using UniModules.Editor;
 #endif
