@@ -1,5 +1,12 @@
 ﻿namespace Game.Ecs.Network.Profiler.Systems
 {
+    using System;
+    using Leopotam.EcsLite;
+    using NetworkCommands.Aspects;
+    using NetworkCommands.Components.Events;
+    using Shared.Profiler;
+    using UniGame.LeoEcs.Bootstrap.Runtime.Attributes;
+
     /// <summary>
     /// update profiler counter
     /// </summary>

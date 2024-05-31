@@ -3,13 +3,9 @@
     using System;
     using Components;
     using Leopotam.EcsLite;
-    using NetworkCommands.Aspects;
     using NetworkCommands.Components;
     using NetworkCommands.Components.Requests;
-    using Shared.Components;
-    using Shared.Components.Requests;
     using UniGame.LeoEcs.Bootstrap.Runtime.Abstract;
-    using UnityEngine.Serialization;
 
     /// <summary>
     /// netcode rpc aspect
@@ -24,8 +20,6 @@
     [Serializable]
     public class NetcodeMessageAspect : EcsAspect
     {
-        public NetworkMessageAspect MessageAspect;
-        
         public EcsPool<NetworkMessageChannelSource> Source;
         public EcsPool<NetcodeMessageChannelComponent> Channel;
         public EcsPool<NetworkSerializationResult> SerializationResult;

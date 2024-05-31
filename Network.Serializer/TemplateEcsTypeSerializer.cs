@@ -42,7 +42,7 @@ namespace Game.Ecs.Network.Shared.Data
             if (!pool.Has(entity)) return false;
             ref var component = ref pool.Get(entity);
             //var size = Unsafe.SizeOf<TemplateSerializeType>();
-            MemoryPackSerializer.Serialize<TemplateSerializeType>(writer, component,MemoryPackSerializerOptions.Utf16);
+            MemoryPackSerializer.Serialize(writer, component, MemoryPackSerializerOptions.Utf16);
             
             return true;
         }

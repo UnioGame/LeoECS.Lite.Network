@@ -2,18 +2,11 @@
 {
     using System;
     using Aspects;
-    using Componenets;
-    using Components;
     using Leopotam.EcsLite;
     using NetworkCommands.Components;
     using NetworkCommands.Components.Requests;
-    using NetworkCommands.Data;
-    using NetworkCommands.Systems;
     using Shared.Aspects;
-    using Shared.Components;
     using UniGame.LeoEcs.Bootstrap.Runtime.Attributes;
-    using UniGame.LeoEcs.Shared.Extensions;
-    using Unity.Collections;
     using UnityNetcode.Aspects;
 
     /// <summary>

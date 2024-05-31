@@ -1,7 +1,7 @@
 ﻿namespace Game.Ecs.Network.UnityNetcode.Converters
 {
     using System;
-    using Componenets;
+    using Components;
     using Leopotam.EcsLite;
     using NetworkCommands.Components;
     using Shared.Components;

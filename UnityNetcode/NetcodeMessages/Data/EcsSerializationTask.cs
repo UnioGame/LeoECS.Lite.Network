@@ -8,8 +8,6 @@
     using NetworkCommands.Data;
     using Unity.Collections;
     using Unity.Collections.LowLevel.Unsafe;
-    using Unity.IL2CPP.CompilerServices;
-    using UnityEngine.Serialization;
 
 #if ENABLE_IL2CPP
     [Il2CppSetOption(Option.NullChecks, false)]

@@ -7,7 +7,7 @@
     using Shared.Components.Events;
     using UniGame.LeoEcs.Bootstrap.Runtime.Attributes;
     using UniGame.LeoEcs.Shared.Extensions;
-    
+
     /// <summary>
     /// handle new client connect
     /// </summary>

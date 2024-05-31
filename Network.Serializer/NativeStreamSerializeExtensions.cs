@@ -1,5 +1,12 @@
 ﻿namespace Game.Ecs.Network.Network.Serializer
 {
+    using System;
+    using System.Buffers;
+    using System.Runtime.CompilerServices;
+    using MemoryPack;
+    using Unity.Collections;
+    using Unity.Collections.LowLevel.Unsafe;
+    using UnityNetcode.NetcodeMessages.Systems;
 #if ENABLE_IL2CPP
     using System;
     using System.Buffers;

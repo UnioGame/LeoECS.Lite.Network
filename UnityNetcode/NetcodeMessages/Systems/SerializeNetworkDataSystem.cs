@@ -3,9 +3,7 @@
     using System;
     using System.Buffers;
     using Aspects;
-    using Componenets;
     using Leopotam.EcsLite;
-    using MemoryPack.Compression;
     using Network.Serializer;
     using NetworkCommands.Aspects;
     using NetworkCommands.Components;
@@ -19,6 +17,7 @@
     using Unity.Collections;
     using Unity.Collections.LowLevel.Unsafe;
     using UnityNetcode.Aspects;
+    using UnityNetcode.Components;
 
     /// <summary>
     /// send message with base rpc channel

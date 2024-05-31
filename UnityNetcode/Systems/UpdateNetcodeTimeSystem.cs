@@ -2,7 +2,7 @@
 {
     using System;
     using Aspects;
-    using Componenets;
+    using Components;
     using Data;
     using Leopotam.EcsLite;
     using Shared.Aspects;

@@ -2,12 +2,11 @@
 {
     using System;
     using Aspects;
-    using Componenets;
+    using Components;
     using Leopotam.EcsLite;
     using Shared.Aspects;
     using Shared.Components.Requests;
     using UniGame.LeoEcs.Bootstrap.Runtime.Attributes;
-    using UniGame.LeoEcs.Shared.Extensions;
 
     /// <summary>
     /// initialize netcode data

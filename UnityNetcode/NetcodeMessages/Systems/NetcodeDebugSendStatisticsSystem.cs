@@ -3,12 +3,9 @@
     using System;
     using System.Text;
     using Aspects;
-    using Componenets;
     using Leopotam.EcsLite;
     using NetworkCommands.Aspects;
-    using NetworkCommands.Components;
     using NetworkCommands.Components.Requests;
-    using NetworkCommands.Data;
     using Shared.Aspects;
     using Shared.Components;
     using Shared.Data;
@@ -17,6 +14,7 @@
     using UniGame.LeoEcs.Shared.Extensions;
     using UnityEngine;
     using UnityNetcode.Aspects;
+    using UnityNetcode.Components;
 
     /// <summary>
     /// send message with base rpc channel

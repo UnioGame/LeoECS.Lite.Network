@@ -2,12 +2,10 @@
 {
     using System;
     using Aspects;
-    using Componenets;
-    using Data;
+    using Components;
     using Leopotam.EcsLite;
     using Shared.Aspects;
     using Shared.Components;
-    using Shared.Data;
     using UniGame.LeoEcs.Bootstrap.Runtime.Attributes;
 
     /// <summary>

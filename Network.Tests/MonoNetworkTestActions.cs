@@ -5,19 +5,14 @@ namespace Game.Ecs.Network.Network.Tests
     using System;
     using System.Buffers;
     using System.Runtime.CompilerServices;
-    using JacksonDunstan.NativeCollections;
     using MemoryPack;
     using NetworkCommands.Data;
     using Serializer;
     using Shared.Data;
     using Sirenix.OdinInspector;
-    using Unity.Burst;
     using Unity.Collections;
     using Unity.Collections.LowLevel.Unsafe;
-    using Unity.IL2CPP.CompilerServices;
-    using Unity.Jobs;
     using UnityEngine.Profiling;
-    using UnityEngine.Serialization;
     using UnityNetcode.NetcodeMessages.Systems;
 
     public class MonoNetworkTestActions : MonoBehaviour
@@ -105,7 +100,7 @@ namespace Game.Ecs.Network.Network.Tests
             };
             var start = writer.GetSpan().Length;
             //var size = Unsafe.SizeOf<TemplateSerializeType>();
-            MemoryPackSerializer.Serialize<TemplateSerializeType>(writer, value, MemoryPackSerializerOptions.Utf16);
+            MemoryPackSerializer.Serialize(writer, value, MemoryPackSerializerOptions.Utf16);
             return writer.GetSpan().Length - start;
         }
         
