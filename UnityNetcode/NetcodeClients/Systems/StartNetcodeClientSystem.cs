@@ -87,7 +87,8 @@
                         GameLog.LogError($"Failed to start client for address: {address} | port: {port}");
                         continue;
                     }
-                    
+                       
+                    GameLog.Log($"Successfully started client for address: {address} | port: {port}");
                     break;
                 }
                 

@@ -81,6 +81,9 @@
                     GameLog.LogError($"Failed to start host for address: {address} | port: {port}");
                     continue;
                 }
+
+                var mode = request.AllowServerClient ? "host" : "server";
+                GameLog.Log($"Successfully started {mode} for address: {address} | port: {port}");
                 
                 ref var connectedEvent = ref _networkAspect.ServerConnected.Add(netcodeEntity);
                 

@@ -3,7 +3,6 @@
     using System;
     using Componenets.Requests;
     using Components;
-    using Components.Events;
     using global::UnityNetcode.Componenets.Requests;
     using Leopotam.EcsLite;
     using Shared.Components;
@@ -39,9 +38,5 @@
         public EcsPool<InitializeNetcodeSelfRequest> InitializeSelf;
         public EcsPool<CreateNetcodeAgentSelfRequest> CreateAgent;
         public EcsPool<ConnectToNetcodeSelfRequest> Connect;
-        
-        // events
-        public EcsPool<NetcodePlayerReadyToGameEvent> PlayerReadyEvent;
-        public EcsPool<NetcodePlayerNotReadyToGameEvent> PlayerNotReadyEvent;
     }
 }

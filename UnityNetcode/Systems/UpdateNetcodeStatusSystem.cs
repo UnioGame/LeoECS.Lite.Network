@@ -54,6 +54,12 @@
 
                var isClient = manager.IsClient || manager.IsHost;
                var isServer = manager.IsServer;
+
+               if (isClient)
+               {
+                   ref var statusComponent = ref _netcodeAspect.Status.Get(entity);
+                   statusComponent.IsConnected = true;
+               }
                
                connectionTypeComponent.IsClient = isClient;
                connectionTypeComponent.IsServer = isServer;
