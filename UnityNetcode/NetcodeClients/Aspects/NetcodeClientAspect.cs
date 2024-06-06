@@ -21,8 +21,6 @@
     [Serializable]
     public class NetcodeClientAspect : EcsAspect
     {
-        public NetworkClientAspect ClientAspect;
-        
         public EcsPool<GameObjectComponent> GameObject;
         //base network client marker
         public EcsPool<NetworkClientComponent> Client;

@@ -6,13 +6,25 @@
     using Leopotam.EcsLite.ExtendedSystems;
     using Shared.Components.Events;
     using Systems;
+    using UniGame.AddressableTools.Runtime;
     using UniGame.LeoEcs.Bootstrap.Runtime;
+    using UniGame.LeoEcs.Converter.Runtime;
+    using UnityEngine;
+    using UnityEngine.AddressableAssets;
+    using Object = UnityEngine.Object;
 
     [Serializable]
     public class NetcodeClientsFeature : LeoEcsFeature
     {
-        protected sealed override UniTask OnInitializeFeatureAsync(IEcsSystems ecsSystems)
+        [SerializeField]
+        private AssetReferenceT<LeoEcsMonoConverter> _clientConverter;
+        
+        protected sealed override async UniTask OnInitializeFeatureAsync(IEcsSystems ecsSystems)
         {
+            var lifetime = ecsSystems.GetLifeTime();
+            var converterPrefab = await _clientConverter.LoadAssetTaskAsync(lifetime);
+            var converterInstance = Object.Instantiate(converterPrefab);
+            
             ecsSystems.DelHere<NetworkClientConnectedSelfEvent>();
             ecsSystems.DelHere<NetworkClientDisconnectedEvent>();
             
@@ -24,8 +36,6 @@
             
             //handle new client connect and ask to resend all data
             ecsSystems.Add(new HandleNewClientConnectSystem());
-            
-            return UniTask.CompletedTask;
         }
     }
 

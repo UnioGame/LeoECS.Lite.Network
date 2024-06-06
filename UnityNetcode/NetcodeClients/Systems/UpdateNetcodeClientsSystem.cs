@@ -8,6 +8,7 @@
     using UniGame.LeoEcs.Bootstrap.Runtime.Attributes;
     using UniGame.LeoEcs.Shared.Extensions;
     using Unity.Collections;
+    using Unity.Netcode;
     using UnityNetcode.Aspects;
     using UnityNetcode.Components;
 
@@ -69,13 +70,14 @@
             foreach (var newClientEntity in _newClients)
             {
                 ref var gameObjectComponent = ref _clientAspect.GameObject.Get(newClientEntity);
-                ref var objectComponent = ref _clientAspect.ClientObject.Get(newClientEntity);
-                ref var idComponent = ref _networkClientAspect.ClientId.Get(newClientEntity);
-                ref var connectionComponent = ref _networkClientAspect.Connection.Get(newClientEntity);
+                ref var objectComponent = ref _clientAspect.ClientObject.Add(newClientEntity);
+                ref var idComponent = ref _networkClientAspect.ClientId.Add(newClientEntity);
+                ref var connectionComponent = ref _networkClientAspect.Connection.Add(newClientEntity);
                 
                 ref var linkComponent = ref _networkClientAspect.NetworkLink.Add(newClientEntity);
                 ref var connectedSelfEvent = ref _networkClientAspect.Connected.Add(newClientEntity);
-                
+
+                objectComponent.Value = gameObjectComponent.Value.GetComponent<NetworkObject>();
                 linkComponent.Value = _world.PackEntity(managerEntity);
                 var networkClient = objectComponent.Value;
 

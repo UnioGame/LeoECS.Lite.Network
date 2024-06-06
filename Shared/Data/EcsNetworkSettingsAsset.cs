@@ -8,6 +8,7 @@
     using Unity.Collections.LowLevel.Unsafe;
     using UnityEngine;
     using System;
+    using UniGame.Tools;
     using UnityCodeGen;
 
 #if UNITY_EDITOR
@@ -20,7 +21,8 @@
     {
         [HideLabel]
         [InlineProperty]
-        public EcsNetworkSettings networkSettings = new();
+        [SerializeField]
+        public EcsNetworkSettings networkSettings;
         
         private Dictionary<Type,bool> cachedTypes = new();
         
@@ -32,6 +34,8 @@
         {
             UnityCodeGenUtility.Generate();
             BakeNetworkData();
+            
+            this.SaveAsset();
         }
         
         [Button]
@@ -40,10 +44,7 @@
             var data = networkSettings.networkData;
             
             Bake<IEcsNetworkValue>(ref data.networkTypes);
-            //Bake<IEcsClientNetworkValue>(data.networkTypes);
             BakeClient<IEcsClientNetworkValue>(ref data.clientTypes);
-            
-            this.MarkDirty();
         }
         
         public IEcsTypeSerializer GetNetworkSerializer(Type type)

@@ -32,8 +32,11 @@
             ref var networkClientIdComponent = ref world.AddComponent<NetworkClientIdComponent>(entity);
             
             networkObjectComponent.Value = networkObject;
-            
-            if(makeImmortal) Object.DontDestroyOnLoad(target);
+
+            if (makeImmortal)
+            {
+                Object.DontDestroyOnLoad(target);
+            }
         }
 
         
