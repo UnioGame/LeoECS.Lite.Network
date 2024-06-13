@@ -90,6 +90,9 @@
                 var packedNetEntity = _world.PackEntity(netcodeEntity);
                 ref var linkComponent = ref _networkAspect.NetworkLink.GetOrAddComponent(entity);
                 linkComponent.Value = packedNetEntity;
+
+                ref var netcodeLinkComponent = ref _netcodeAspect.Link.GetOrAddComponent(entity);
+                netcodeLinkComponent.Value = packedNetEntity;
                 
                 _networkAspect.StartNetwork.Del(entity);
             }

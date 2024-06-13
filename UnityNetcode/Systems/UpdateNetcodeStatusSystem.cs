@@ -4,6 +4,7 @@
     using Aspects;
     using Components;
     using Leopotam.EcsLite;
+    using NetworkCommands.Data;
     using Shared.Aspects;
     using Shared.Components;
     using UniGame.LeoEcs.Bootstrap.Runtime.Attributes;
@@ -48,6 +49,7 @@
             foreach (var entity in _filter)
             {
                ref var managerComponent = ref _netcodeAspect.Manager.Get(entity);
+               ref var agentComponent = ref _netcodeAspect.Agent.Get(entity);
                ref var connectionTypeComponent = ref _networkAspect.ConnectionType.Get(entity);
 
                var manager = managerComponent.Value;
@@ -55,23 +57,20 @@
                var isClient = manager.IsClient || manager.IsHost;
                var isServer = manager.IsServer;
 
-               if (isClient)
-               {
-                   ref var statusComponent = ref _netcodeAspect.Status.Get(entity);
-                   statusComponent.IsConnected = true;
-               }
-               
+               ref var statusComponent = ref _netcodeAspect.Status.Get(entity);
+               statusComponent.IsConnected = true;
+               statusComponent.Status = ConnectionStatus.Connected;
                connectionTypeComponent.IsClient = isClient;
                connectionTypeComponent.IsServer = isServer;
                connectionTypeComponent.IsActive = isClient || isServer;
+
+               agentComponent.Id = manager.LocalClientId;
             }
 
             foreach (var linkEntity in _networkLinkFilter)
             {
                 var linkComponent = _networkAspect.NetworkLink.Get(linkEntity);
-                
             }
         }
-
     }
 }

@@ -7,12 +7,19 @@
     using Shared.Components.Events;
     using Systems;
     using UniGame.LeoEcs.Bootstrap.Runtime;
+    using Unity.Netcode;
+    using UnityEngine;
 
     [Serializable]
     public class NetcodeClientsFeature : LeoEcsFeature
     {
+        [SerializeField]
+        private NetworkObject _clientAgentPrefab;
+        
         protected sealed override UniTask OnInitializeFeatureAsync(IEcsSystems ecsSystems)
         {
+            ecsSystems.Add(new InitializeClientAgentObjectSystem(_clientAgentPrefab));
+            
             ecsSystems.DelHere<NetworkClientConnectedSelfEvent>();
             ecsSystems.DelHere<NetworkClientDisconnectedEvent>();
             

@@ -3,6 +3,7 @@
     using System;
     using Aspects;
     using Leopotam.EcsLite;
+    using NetworkCommands.Aspects;
     using NetworkCommands.Components;
     using NetworkCommands.Data;
     using Shared.Aspects;
@@ -28,6 +29,7 @@
         private NetworkAspect _networkAspect;
         private NetcodeAspect _netcodeAspect;
         private NetcodeMessageAspect _messageAspect;
+        private NetworkMessageAspect _networkMessageAspect;
 
         private EcsWorld _world;
         private EcsFilter _receiveFilter;
@@ -57,11 +59,11 @@
             if (networkEntity < 0) return;
             
             ref var connection = ref _netcodeAspect.ConnectionType.Get(networkEntity);
-            if (!connection.IsServer) return;
+            if (connection.IsClient) return;
             
             foreach (var entity in _receiveFilter)
             {
-                ref var receivedDataComponent = ref _messageAspect.ReceiveResult.Get(entity);
+                ref var receivedDataComponent = ref _networkMessageAspect.ReceiveResult.Get(entity);
                 ref var entities = ref receivedDataComponent.Data;
                 ref var components = ref receivedDataComponent.Components;
                 
@@ -81,12 +83,17 @@
                         var componentData = components[j];
                         
                         //is client type allowed
-                        if(!_networkData.TryGetClientType(componentData.TypeId,out var componentType)) continue;
+                        if (!_networkData.TryGetClientType(componentData.TypeId, out var syncType))
+                        {
+                            continue;
+                        }
 
-                        var serialized = componentType.serializer;
+                        var serializer = syncType.serializer;
                         
                         newEntity = newEntity < 0 ? _world.NewEntity() : newEntity;
-                        serialized.Deserialize(_world, newEntity, ref componentData.Component);
+                        serializer.Deserialize(_world, newEntity, ref componentData.Component);
+                        ref var senderIdComponent = ref _netcodeAspect.SenderId.GetOrAddComponent(newEntity);
+                        senderIdComponent.Value = receivedDataComponent.Sender;
                     }
                 }
             }

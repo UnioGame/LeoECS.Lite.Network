@@ -17,7 +17,6 @@
     {
         public ulong Id;
         public bool IsMaster;
-        public bool IsLocal;
         public bool IsActive;
         public bool IsReadyToPlay;
     }

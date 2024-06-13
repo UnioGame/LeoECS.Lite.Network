@@ -1,6 +1,7 @@
-﻿namespace UnityNetcode.Componenets.Requests
+﻿namespace Game.Ecs.Network.UnityNetcode.NetcodeMessages.Components
 {
     using System;
+    
 #if ENABLE_IL2CPP
     using Unity.IL2CPP.CompilerServices;
 
@@ -9,7 +10,7 @@
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
 #endif
     [Serializable]
-    public struct CreateNetcodeAgentSelfRequest
+    public struct ReceivedMessageComponent
     {
         
     }

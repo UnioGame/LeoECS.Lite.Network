@@ -24,7 +24,7 @@
         public EcsPool<NetcodeMessageChannelComponent> Channel;
         public EcsPool<NetworkSerializationResult> SerializationResult;
         public EcsPool<NetworkSyncComponent> ServerEntity;
-        public EcsPool<NetworkReceiveResultComponent> ReceiveResult;
+        public EcsPool<ReceivedMessageComponent> ReceivedMessage;
         
         /// <summary>
         /// history of sync values during several ticks
@@ -35,7 +35,6 @@
         /// network value id
         /// </summary>
         public EcsPool<NetworkSyncValuesComponent> SyncValues;
-        public EcsPool<NetworkIdComponent> Id;
         
         //data to receive
         public EcsPool<NetworkMessageDataComponent> MessageData;
@@ -44,8 +43,5 @@
         
         //request to serialize current ecs data to history
         public EcsPool<NetworkSerializeRequest> Serialize;
-        //request to send history data 
-        public EcsPool<NetworkTransferRequest> Transfer;
-        public EcsPool<SerializeNetworkEntityRequest> SerializeEntity;
     }
 }

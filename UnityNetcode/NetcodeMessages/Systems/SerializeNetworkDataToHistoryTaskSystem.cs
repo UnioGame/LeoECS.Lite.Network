@@ -114,7 +114,7 @@
             foreach (var requestEntity in _serializeFilter)
             {
                 serializeRequested = true;
-                ref var request = ref _netcodeMessageAspect.SerializeEntity.Get(requestEntity);
+                ref var request = ref _networkMessageAspect.SerializeEntity.Get(requestEntity);
                 forceSerialize = forceSerialize || request.Force;
             }
             

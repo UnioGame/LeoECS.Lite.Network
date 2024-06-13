@@ -1,10 +1,11 @@
 ﻿namespace Game.Ecs.Network.UnityNetcode.NetcodeMessages.Systems
 {
     using System;
-    using Aspects;
     using Components;
     using Leopotam.EcsLite;
+    using NetworkCommands.Aspects;
     using NetworkCommands.Components;
+    using NetworkCommands.Data;
     using Shared.Aspects;
     using Shared.Components;
     using Shared.Data;
@@ -29,7 +30,7 @@
     {
         private NetworkAspect _networkAspect;
         private NetcodeAspect _netcodeAspect;
-        private NetcodeMessageAspect _messageAspect;
+        private NetworkMessageAspect _messageAspect;
         
         private EcsWorld _world;
         
@@ -91,15 +92,24 @@
             //todo allow target to be a server from client side
             ref var transferRequest = ref _messageAspect.Transfer.Add(serializeEntity);
             ref var serializeComponent = ref _messageAspect.SerializeEntity.Add(serializeEntity);
+            ref var targetComponent = ref _messageAspect.Target.Add(serializeEntity);
+
+            NetworkMessageTarget target;
+            switch (connectionType.IsServer)
+            {
+                case true when connectionType.IsClient:
+                    break;
+            }
             
+            targetComponent.Value = connectionType.IsServer switch
+            {
+                true when connectionType.IsClient => NetworkMessageTarget.All,
+                true => _networkSettings.defaultServerTarget,
+                false => _networkSettings.defaultClientTarget
+            };
+                
             transferRequest.Tick = tick;
             transferRequest.Time = time;
-            transferRequest.TargetId = 0;
-            
-            //todo allow custom target override for server side
-            transferRequest.Target = connectionType.IsServer 
-                ? _networkSettings.defaultServerTarget
-                : _networkSettings.defaultClientTarget;
         }
     }
 }

@@ -11,6 +11,6 @@
     [Serializable]
     public struct NetcodeAgentComponent
     {
-        
+        public ulong Id;
     }
 }

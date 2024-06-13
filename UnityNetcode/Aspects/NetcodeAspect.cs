@@ -31,12 +31,13 @@
         public EcsPool<NetcodeAgentComponent> Agent;
         public EcsPool<NetcodeAgentLinkComponent> Link;
         public EcsPool<NetcodeStatusComponent> Status;
+
+        public EcsPool<NetcodeMessageSenderId> SenderId;
         
         public EcsPool<NetworkConnectionTypeComponent> ConnectionType;
         //requests
         //initialize netcode and create new entity if not exists
         public EcsPool<InitializeNetcodeSelfRequest> InitializeSelf;
-        public EcsPool<CreateNetcodeAgentSelfRequest> CreateAgent;
         public EcsPool<ConnectToNetcodeSelfRequest> Connect;
     }
 }

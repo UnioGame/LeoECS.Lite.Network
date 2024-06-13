@@ -8,6 +8,7 @@
     using NetworkCommands.Components.Requests;
     using Shared.Aspects;
     using Shared.Components;
+    using UniCore.Runtime.ProfilerTools;
     using UniGame.LeoEcs.Bootstrap.Runtime.Attributes;
     using UniGame.LeoEcs.Shared.Extensions;
 
@@ -49,7 +50,7 @@
                 .End();
             
             _eventFilter = _world
-                .Filter<NetworkIdComponent>()
+                .Filter<SerializeNetworkEntityRequest>()
                 .Inc<NetworkEventComponent>()
                 .Exc<NetworkSyncComponent>()
                 .End();
@@ -62,12 +63,10 @@
 
         public void Run(IEcsSystems systems)
         {
-
             foreach (var eventEntity in _eventFilter)
             {
-                _messageAspect.NetworkId.Del(eventEntity);
-                _messageAspect.NetworkEvent.Del(eventEntity);
-                _messageAspect.Target.TryRemove(eventEntity);
+                GameLog.Log($"Removing serialized message {eventEntity}");
+                _world.DelEntity(eventEntity);
             }
             
             var networkEntity = _networkFilter.First();

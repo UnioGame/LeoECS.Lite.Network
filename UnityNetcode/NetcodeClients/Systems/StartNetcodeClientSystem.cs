@@ -1,6 +1,7 @@
 ﻿namespace Game.Ecs.Network.UnityNetcode.NetcodeClients.Systems
 {
     using System;
+    using Aspects;
     using Componenets.Requests;
     using Leopotam.EcsLite;
     using Shared.Aspects;
@@ -28,6 +29,7 @@
         private NetworkAspect _networkAspect;
         private NetcodeAspect _netcodeAspect;
         private NetworkClientAspect _clientAspect;
+        private NetcodeClientAspect _netcodeClientAspect;
         
         private EcsWorld _world;
         private EcsFilter _filter;
@@ -73,21 +75,23 @@
 
                     var manager = managerComponent.Value;
                     var transport = transportComponent.Value;
-                
-                    if(manager.IsServer || manager.IsClient) continue;
+
+                    if (manager.IsServer || manager.IsClient)
+                    {
+                        continue;
+                    }
                     
                     transport.ConnectionData.Address = address;
                     transport.ConnectionData.Port = (ushort)port;
                 
                     //start server
                     var result = manager.StartClient();
-                    
                     if(!result)
                     {
                         GameLog.LogError($"Failed to start client for address: {address} | port: {port}");
                         continue;
                     }
-                       
+                    
                     GameLog.Log($"Successfully started client for address: {address} | port: {port}");
                     break;
                 }
@@ -97,10 +101,12 @@
                 var packedNetEntity = _world.PackEntity(netcodeEntityTarget);
                 ref var linkComponent = ref _networkAspect.NetworkLink.GetOrAddComponent(entity);
                 linkComponent.Value = packedNetEntity;
+
+                ref var agentLinkComponent = ref _netcodeAspect.Link.Add(entity);
+                agentLinkComponent.Value = packedNetEntity;
                 
                 _clientAspect.Connect.Del(entity);
             }
         }
-
     }
 }

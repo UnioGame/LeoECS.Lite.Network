@@ -17,16 +17,12 @@
     [Serializable]
     public struct NetworkTransferRequest : IEcsAutoReset<NetworkTransferRequest>
     {
-        public ulong TargetId;
         public int Tick;
         public float Time;
-        public NetworkMessageTarget Target;
         
         public void AutoReset(ref NetworkTransferRequest c)
         {
-            c.TargetId = 0;
             c.Tick = -1;
-            c.Target = NetworkMessageTarget.NotServer;
             c.Time = -1;
         }
     }
