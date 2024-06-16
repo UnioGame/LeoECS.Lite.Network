@@ -58,7 +58,10 @@
                 var port = request.Port;
 
                 var netcodeEntity = _netFilter.First();
-                if(netcodeEntity < 0) continue;
+                if (netcodeEntity < 0)
+                {
+                    continue;
+                }
       
                 ref var managerComponent = ref _netcodeAspect.Manager.Get(netcodeEntity);
                 ref var transportComponent = ref _netcodeAspect.Transport.Get(netcodeEntity);
@@ -90,9 +93,6 @@
                 var packedNetEntity = _world.PackEntity(netcodeEntity);
                 ref var linkComponent = ref _networkAspect.NetworkLink.GetOrAddComponent(entity);
                 linkComponent.Value = packedNetEntity;
-
-                ref var netcodeLinkComponent = ref _netcodeAspect.Link.GetOrAddComponent(entity);
-                netcodeLinkComponent.Value = packedNetEntity;
                 
                 _networkAspect.StartNetwork.Del(entity);
             }

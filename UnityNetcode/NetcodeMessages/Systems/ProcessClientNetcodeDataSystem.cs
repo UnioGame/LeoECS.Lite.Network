@@ -112,8 +112,11 @@
                     
                     //mark entity as server
                     _messageAspect.ServerEntity.GetOrAddComponent(targetEntity);
-                    
-                    if(!entityData.IsValueChanged) continue;
+
+                    if (!entityData.IsValueChanged)
+                    {
+                        continue;
+                    }
                     
                     //remove ald network values
                     _world.RemoveComponents<IEcsNetworkValue>(targetEntity);

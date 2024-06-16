@@ -29,7 +29,6 @@
         public EcsPool<NetworkTimeComponent> NetworkTime;
         
         public EcsPool<NetcodeAgentComponent> Agent;
-        public EcsPool<NetcodeAgentLinkComponent> Link;
         public EcsPool<NetcodeStatusComponent> Status;
 
         public EcsPool<NetcodeMessageSenderId> SenderId;

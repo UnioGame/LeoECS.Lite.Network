@@ -55,21 +55,19 @@
             {
                 ref var request = ref _clientAspect.Connect.Get(entity);
                 
-                var netcodeEntityTarget = -1;
                 var address = request.Address;
                 var port = request.Port;
 
-                if (_netFilter.GetEntitiesCount() <= 0)
+                var netcodeEntity = _netFilter.First();
+                if (netcodeEntity < 0)
                 {
                     ref var initializeComponent = ref _netcodeAspect
                         .InitializeSelf.GetOrAddComponent(entity);
                     continue;
                 }
-                
-                foreach (var netcodeEntity in _netFilter)
+
+                if (!request.IsHost)
                 {
-                    netcodeEntityTarget = netcodeEntity;
-                    
                     ref var managerComponent = ref _netcodeAspect.Manager.Get(netcodeEntity);
                     ref var transportComponent = ref _netcodeAspect.Transport.Get(netcodeEntity);
 
@@ -80,30 +78,24 @@
                     {
                         continue;
                     }
-                    
+
                     transport.ConnectionData.Address = address;
                     transport.ConnectionData.Port = (ushort)port;
-                
+
                     //start server
                     var result = manager.StartClient();
-                    if(!result)
+                    if (!result)
                     {
                         GameLog.LogError($"Failed to start client for address: {address} | port: {port}");
                         continue;
                     }
-                    
+
                     GameLog.Log($"Successfully started client for address: {address} | port: {port}");
-                    break;
                 }
                 
-                if(netcodeEntityTarget<0) continue;
-                
-                var packedNetEntity = _world.PackEntity(netcodeEntityTarget);
+                var packedNetEntity = _world.PackEntity(netcodeEntity);
                 ref var linkComponent = ref _networkAspect.NetworkLink.GetOrAddComponent(entity);
                 linkComponent.Value = packedNetEntity;
-
-                ref var agentLinkComponent = ref _netcodeAspect.Link.Add(entity);
-                agentLinkComponent.Value = packedNetEntity;
                 
                 _clientAspect.Connect.Del(entity);
             }
