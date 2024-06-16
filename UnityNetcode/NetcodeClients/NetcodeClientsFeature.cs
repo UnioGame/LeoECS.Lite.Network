@@ -32,6 +32,8 @@
             
             //handle new client connect and ask to resend all data
             ecsSystems.Add(new HandleNewClientConnectSystem());
+            
+            return UniTask.CompletedTask;
         }
     }
 
