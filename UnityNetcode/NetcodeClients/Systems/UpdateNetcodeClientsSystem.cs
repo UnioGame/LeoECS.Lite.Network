@@ -29,6 +29,7 @@
         private NetcodeAspect _netcodeAspect;
         private NetcodeClientAspect _clientAspect;
         private NetworkClientAspect _networkClientAspect;
+        private NetcodePlayerAspect _netcodePlayerAspect;
         
         private EcsWorld _world;
         private EcsFilter _managerFilter;
@@ -91,9 +92,10 @@
                 idComponent.Id = id;
                 
                 _clients[id] = _world.PackEntity(newClientEntity);
-
                 if (networkClient.IsLocalPlayer)
+                {
                     _networkClientAspect.Local.Add(newClientEntity);
+                }
             }
 
             _removedIds.Clear();

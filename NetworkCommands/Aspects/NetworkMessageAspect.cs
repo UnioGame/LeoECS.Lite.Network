@@ -32,9 +32,6 @@
         public EcsPool<NetworkReceiveResultComponent> ReceiveResult;
         public EcsPool<NetworkEventComponent> NetworkEvent;
         
-        //received byte array from network
-        public EcsPool<NetworkMessageDataComponent> MessageData;
-        
         // === requests ===
         
         //request to remove entity from network

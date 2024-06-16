@@ -7,7 +7,7 @@
     public static class NetworkObjectExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static RpcParams GetRpcTarget(this NetworkBehaviour target,NetworkMessageTarget messageTarget)
+        public static RpcParams GetRpcTarget(this NetworkBehaviour target,NetworkMessageTarget messageTarget, ulong id = default)
         {
             var rpcTarget = target.RpcTarget;
             var targetResult = messageTarget switch
@@ -17,8 +17,10 @@
                 NetworkMessageTarget.All => rpcTarget.Everyone,
                 NetworkMessageTarget.Me => rpcTarget.Me,
                 NetworkMessageTarget.NotMe => rpcTarget.NotMe,
+                NetworkMessageTarget.Specified => rpcTarget.Single(id, RpcTargetUse.Temp),
                 _ => rpcTarget.Server,
             };
+            
             return targetResult;
         }
     }

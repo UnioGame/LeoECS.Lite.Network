@@ -78,13 +78,14 @@
 
                     networkWriter.WriteData(ref componentHeader, offset);
                     offset += size + headerSize;
+                    break;
                 }
 
                 if (syncComponentsCount == 0)
                     continue;
                 
                 currentHash = ByteHashCalculator.ComputeHash(ref networkWriter,itemOffset+entityHeaderSize,offset);
-                var isSameValues =  (useHashFiltering && previousHash == currentHash);
+                var isSameValues =  useHashFiltering && previousHash == currentHash;
                 var isValueChanged = forceSerialize || !isSameValues;
                 
                 var entityHeader = new NetworkEntityHeader()

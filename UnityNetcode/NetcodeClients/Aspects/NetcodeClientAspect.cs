@@ -3,7 +3,6 @@
     using System;
     using Components;
     using Leopotam.EcsLite;
-    using Shared.Aspects;
     using Shared.Components;
     using UniGame.LeoEcs.Bootstrap.Runtime.Abstract;
     using UniGame.LeoEcs.Shared.Components;
@@ -22,8 +21,6 @@
     public class NetcodeClientAspect : EcsAspect
     {
         public EcsPool<GameObjectComponent> GameObject;
-        //base network client marker
-        public EcsPool<NetworkClientComponent> Client;
         //id of client
         public EcsPool<NetworkClientIdComponent> ClientId;
         //link to client game object

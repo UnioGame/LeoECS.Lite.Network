@@ -3,6 +3,7 @@
     using System;
     using Aspects;
     using Leopotam.EcsLite;
+    using NetworkCommands.Aspects;
     using NetworkCommands.Components;
     using NetworkCommands.Data;
     using Shared.Aspects;
@@ -29,6 +30,7 @@
         private NetworkAspect _networkAspect;
         private NetcodeAspect _netcodeAspect;
         private NetcodeMessageAspect _messageAspect;
+        private NetworkMessageAspect _networkMessageAspect;
 
         private EcsWorld _world;
         private EcsFilter _receiveFilter;
@@ -72,7 +74,7 @@
             ref var connection = ref _netcodeAspect.ConnectionType.Get(networkEntity);
             ref var syncValuesComponent = ref _messageAspect.SyncValues.Get(networkEntity);
             
-            if(connection.IsServer) return;
+            if(!connection.IsClient) return;
 
             var syncIds = syncValuesComponent.Values;
             if (_receiveFilter.GetEntitiesCount() <= 0) return;
@@ -82,7 +84,7 @@
             
             foreach (var entity in _receiveFilter)
             {
-                ref var receivedComponent = ref _messageAspect.ReceiveResult.Get(entity);
+                ref var receivedComponent = ref _networkMessageAspect.ReceiveResult.Get(entity);
                 ref var entities = ref receivedComponent.Data;
                 ref var components = ref receivedComponent.Components;
                 
@@ -101,7 +103,7 @@
                     if (targetEntity < 0)
                     {
                         targetEntity = _world.NewEntity();
-                        ref var syncIdComponent = ref _messageAspect.Id.Add(targetEntity);
+                        ref var syncIdComponent = ref _networkMessageAspect.NetworkId.Add(targetEntity);
                         syncIdComponent.Id = syncId;
                     }
                     
@@ -110,8 +112,11 @@
                     
                     //mark entity as server
                     _messageAspect.ServerEntity.GetOrAddComponent(targetEntity);
-                    
-                    if(!entityData.IsValueChanged) continue;
+
+                    if (!entityData.IsValueChanged)
+                    {
+                        continue;
+                    }
                     
                     //remove ald network values
                     _world.RemoveComponents<IEcsNetworkValue>(targetEntity);
@@ -121,10 +126,15 @@
                     for (var j = entityData.ComponentIndexAt; j < finalComponent; j++)
                     {
                         var componentData = components[j];
-                        if (!_networkData.TryGetServerType(componentData.TypeId, out var componentDesc)) continue;
+                        if (!_networkData.TryGetServerType(componentData.TypeId, out var componentDesc))
+                        {
+                            continue;
+                        }
                         
                         var serializer = componentDesc.serializer;
-                        serializer.Deserialize(_world,targetEntity,ref componentData.Component);
+                        serializer.Deserialize(_world, targetEntity, ref componentData.Component);
+                        ref var senderIdComponent = ref _netcodeAspect.SenderId.GetOrAddComponent(targetEntity);
+                        senderIdComponent.Value = receivedComponent.Sender;
                     }
                 }
             }

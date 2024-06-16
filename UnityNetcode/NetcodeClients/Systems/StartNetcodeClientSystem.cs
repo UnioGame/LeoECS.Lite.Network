@@ -1,6 +1,7 @@
 ﻿namespace Game.Ecs.Network.UnityNetcode.NetcodeClients.Systems
 {
     using System;
+    using Aspects;
     using Componenets.Requests;
     using Leopotam.EcsLite;
     using Shared.Aspects;
@@ -28,6 +29,7 @@
         private NetworkAspect _networkAspect;
         private NetcodeAspect _netcodeAspect;
         private NetworkClientAspect _clientAspect;
+        private NetcodeClientAspect _netcodeClientAspect;
         
         private EcsWorld _world;
         private EcsFilter _filter;
@@ -53,54 +55,50 @@
             {
                 ref var request = ref _clientAspect.Connect.Get(entity);
                 
-                var netcodeEntityTarget = -1;
                 var address = request.Address;
                 var port = request.Port;
 
-                if (_netFilter.GetEntitiesCount() <= 0)
+                var netcodeEntity = _netFilter.First();
+                if (netcodeEntity < 0)
                 {
                     ref var initializeComponent = ref _netcodeAspect
                         .InitializeSelf.GetOrAddComponent(entity);
                     continue;
                 }
-                
-                foreach (var netcodeEntity in _netFilter)
+
+                if (!request.IsHost)
                 {
-                    netcodeEntityTarget = netcodeEntity;
-                    
                     ref var managerComponent = ref _netcodeAspect.Manager.Get(netcodeEntity);
                     ref var transportComponent = ref _netcodeAspect.Transport.Get(netcodeEntity);
 
                     var manager = managerComponent.Value;
                     var transport = transportComponent.Value;
-                
-                    if(manager.IsServer || manager.IsClient) continue;
-                    
+
+                    if (manager.IsServer || manager.IsClient)
+                    {
+                        continue;
+                    }
+
                     transport.ConnectionData.Address = address;
                     transport.ConnectionData.Port = (ushort)port;
-                
+
                     //start server
                     var result = manager.StartClient();
-                    
-                    if(!result)
+                    if (!result)
                     {
                         GameLog.LogError($"Failed to start client for address: {address} | port: {port}");
                         continue;
                     }
-                       
+
                     GameLog.Log($"Successfully started client for address: {address} | port: {port}");
-                    break;
                 }
                 
-                if(netcodeEntityTarget<0) continue;
-                
-                var packedNetEntity = _world.PackEntity(netcodeEntityTarget);
+                var packedNetEntity = _world.PackEntity(netcodeEntity);
                 ref var linkComponent = ref _networkAspect.NetworkLink.GetOrAddComponent(entity);
                 linkComponent.Value = packedNetEntity;
                 
                 _clientAspect.Connect.Del(entity);
             }
         }
-
     }
 }

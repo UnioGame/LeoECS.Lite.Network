@@ -17,10 +17,6 @@
         public bool IsOnMasterServer;
         public bool IsConnected;
         public bool IsInRoom;
-        public string AppVersion;
-        public string ServerName;
-        public int CountOfPlayersOnMaster;
-        public int CountOfPlayersInRooms;
         public ConnectionStatus Status;
     }
 }

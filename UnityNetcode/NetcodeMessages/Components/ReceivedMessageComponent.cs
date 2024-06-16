@@ -1,7 +1,7 @@
-﻿namespace Game.Ecs.Network.UnityNetcode.Components
+﻿namespace Game.Ecs.Network.UnityNetcode.NetcodeMessages.Components
 {
     using System;
-    using Leopotam.EcsLite;
+    
 #if ENABLE_IL2CPP
     using Unity.IL2CPP.CompilerServices;
 
@@ -10,8 +10,8 @@
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
 #endif
     [Serializable]
-    public struct NetcodeAgentLinkComponent
+    public struct ReceivedMessageComponent
     {
-        public EcsPackedEntity Value;
+        
     }
 }

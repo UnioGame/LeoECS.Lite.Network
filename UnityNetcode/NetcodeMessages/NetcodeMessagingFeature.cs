@@ -34,8 +34,8 @@
             //validate network events and add it to serialization queue
             ecsSystems.Add(new ValidateNetworkEventSystem());
             
-            //validate is ecs data should be serialized
-            //if conditions is true, when add request to serialize data
+            //validates if ecs data should be serialized
+            //if conditions are meet, then adds request to serialize data
             ecsSystems.Add(new ValidateTickNetworkSerializationSystem());
             //is value of entities must be fully send to target
             ecsSystems.Add(new ValidateForceResendNetworkSystem());
@@ -57,6 +57,9 @@
 
             //destroy entities marked as one shot
             ecsSystems.Add(new RemoveNetworkRequestsSystem());
+
+            // cleans received message components (destroys entity completely)
+            //ecsSystems.Add(new MessageCleanerSystem());
             
             //receive network requests and process it
             ecsSystems.Add(new ReceiveNetworkDataSystem());
@@ -83,6 +86,7 @@
             ecsSystems.DelHere<NetworkEventComponent>();
             ecsSystems.DelHere<NetworkSerializationResult>();
             ecsSystems.DelHere<NetworkTransferRequest>();
+            ecsSystems.DelHere<NetworkTargetComponent>();
             ecsSystems.DelHere<NetworkSerializeRequest>();
         }
     }

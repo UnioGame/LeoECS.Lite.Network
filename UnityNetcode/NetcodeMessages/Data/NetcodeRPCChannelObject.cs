@@ -26,6 +26,7 @@
             ref var rpcDataComponent = ref world.AddComponent<NetworkMessageDataComponent>(entity);
             rpcDataComponent.Value = data;
             rpcDataComponent.Size = size;
+            rpcDataComponent.Sender = rpcParams.Receive.SenderClientId;
         }
         
         [Rpc(SendTo.Server)]

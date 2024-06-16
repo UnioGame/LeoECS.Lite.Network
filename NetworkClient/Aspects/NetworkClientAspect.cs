@@ -28,8 +28,6 @@
         public EcsPool<NetworkLinkComponent> NetworkLink;
         //connection type data
         public EcsPool<NetworkConnectionTypeComponent> Connection;
-        //server address
-        public EcsPool<NetworkAddressComponent> ServerAddress;
         
         //=== optional ===
         //mark client as local

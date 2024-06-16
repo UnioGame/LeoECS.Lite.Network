@@ -58,7 +58,10 @@
                 var port = request.Port;
 
                 var netcodeEntity = _netFilter.First();
-                if(netcodeEntity < 0) continue;
+                if (netcodeEntity < 0)
+                {
+                    continue;
+                }
       
                 ref var managerComponent = ref _netcodeAspect.Manager.Get(netcodeEntity);
                 ref var transportComponent = ref _netcodeAspect.Transport.Get(netcodeEntity);

@@ -49,7 +49,6 @@
                 ref var clientComponent = ref _clientAspect.ClientId.Get(entity);
                 resendComponent.ClientId = (int)clientComponent.Id;
             }
-            
         }
     }
 }
