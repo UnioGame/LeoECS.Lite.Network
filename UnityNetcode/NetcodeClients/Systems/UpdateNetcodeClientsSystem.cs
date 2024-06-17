@@ -71,9 +71,9 @@
             foreach (var newClientEntity in _newClients)
             {
                 ref var gameObjectComponent = ref _clientAspect.GameObject.Get(newClientEntity);
-                ref var objectComponent = ref _clientAspect.ClientObject.Add(newClientEntity);
-                ref var idComponent = ref _networkClientAspect.ClientId.Add(newClientEntity);
-                ref var connectionComponent = ref _networkClientAspect.Connection.Add(newClientEntity);
+                ref var objectComponent = ref _clientAspect.ClientObject.GetOrAddComponent(newClientEntity);
+                ref var idComponent = ref _networkClientAspect.ClientId.GetOrAddComponent(newClientEntity);
+                ref var connectionComponent = ref _networkClientAspect.Connection.GetOrAddComponent(newClientEntity);
                 
                 ref var linkComponent = ref _networkClientAspect.NetworkLink.Add(newClientEntity);
                 ref var connectedSelfEvent = ref _networkClientAspect.Connected.Add(newClientEntity);
