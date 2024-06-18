@@ -178,7 +178,7 @@
         {
 #if UNITY_EDITOR || GAME_DEBUG
             
-            GameLog.Log($"AddNetworkComponent entity: {entity} | type: {typeof(TComponent).Name} | target: {target} | event: {markAsEvent}");
+            GameLog.Log($"AddNetworkComponent entity: {entity} | type: {typeof(TComponent).Name} | event: {markAsEvent}");
             
 #endif
             

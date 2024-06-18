@@ -63,9 +63,11 @@
                 var syncId = syncIdComponent.Id;
                 var found = syncValuesComponent.Values.TryGetValue(syncId, out var packedEntity);
                 var exists = packedEntity.Unpack(_world, out var syncEntity);
-                
-                if(!found || !exists || entity != syncEntity)
+
+                if (!found || !exists || entity != syncEntity)
+                {
                     _world.DelEntity(entity);
+                }
             }
         }
     }
