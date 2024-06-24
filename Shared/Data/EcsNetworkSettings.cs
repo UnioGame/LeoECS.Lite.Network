@@ -20,8 +20,6 @@
         [TitleGroup(ServerSettings)]
         public ushort serverPort = 0;
         [TitleGroup(ServerSettings)]
-        public bool isHostMode;
-        [TitleGroup(ServerSettings)]
         public int networkTickRate = 20;
         
         [TitleGroup(CommonSettings)]

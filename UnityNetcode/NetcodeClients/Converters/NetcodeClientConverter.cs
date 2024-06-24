@@ -9,7 +9,6 @@
     using Unity.IL2CPP.CompilerServices;
     using Unity.Netcode;
     using UnityEngine;
-    using Object = UnityEngine.Object;
 
     /// <summary>
     /// convert GameObject to NetworkClientComponent

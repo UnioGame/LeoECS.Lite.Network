@@ -10,6 +10,8 @@
     using UniCore.Runtime.ProfilerTools;
     using UniGame.LeoEcs.Bootstrap.Runtime.Attributes;
     using UniGame.LeoEcs.Shared.Extensions;
+    using Unity.Netcode;
+    using UnityEngine;
     using UnityNetcode.Aspects;
 
     /// <summary>
@@ -65,33 +67,32 @@
                         .InitializeSelf.GetOrAddComponent(entity);
                     continue;
                 }
+                
+                ref var managerComponent = ref _netcodeAspect.Manager.Get(netcodeEntity);
+                ref var transportComponent = ref _netcodeAspect.Transport.Get(netcodeEntity);
 
-                if (!request.IsHost)
+                var manager = managerComponent.Value;
+                var transport = transportComponent.Value;
+
+                if (manager.IsServer || manager.IsClient)
                 {
-                    ref var managerComponent = ref _netcodeAspect.Manager.Get(netcodeEntity);
-                    ref var transportComponent = ref _netcodeAspect.Transport.Get(netcodeEntity);
-
-                    var manager = managerComponent.Value;
-                    var transport = transportComponent.Value;
-
-                    if (manager.IsServer || manager.IsClient)
-                    {
-                        continue;
-                    }
-
-                    transport.ConnectionData.Address = address;
-                    transport.ConnectionData.Port = (ushort)port;
-
-                    //start server
-                    var result = manager.StartClient();
-                    if (!result)
-                    {
-                        GameLog.LogError($"Failed to start client for address: {address} | port: {port}");
-                        continue;
-                    }
-
-                    GameLog.Log($"Successfully started client for address: {address} | port: {port}");
+                    continue;
                 }
+
+                transport.ConnectionData.Address = address;
+                transport.ConnectionData.Port = (ushort)port;
+
+                //start server
+                var result = manager.StartClient();
+                manager.OnTransportFailure += TransportFailed_Callback;
+                manager.OnConnectionEvent += ConnectionEvent_Callback;
+                if (!result)
+                {
+                    GameLog.LogError($"Failed to start client for address: {address} | port: {port}");
+                    continue;
+                }
+                
+                GameLog.Log($"Successfully started client for address: {address} | port: {port}");
                 
                 var packedNetEntity = _world.PackEntity(netcodeEntity);
                 ref var linkComponent = ref _networkAspect.NetworkLink.GetOrAddComponent(entity);
@@ -99,6 +100,16 @@
                 
                 _clientAspect.Connect.Del(entity);
             }
+        }
+
+        private void ConnectionEvent_Callback(NetworkManager manager, ConnectionEventData eventData)
+        {
+            Debug.Log($"Connection event: Type: {eventData.EventType} | client: {eventData.ClientId}.");
+        }
+
+        private void TransportFailed_Callback()
+        {
+            GameLog.Log("Transport failed.");
         }
     }
 }

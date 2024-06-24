@@ -18,6 +18,5 @@
     {
         public string Address;
         public int Port;
-        public bool IsHost;
     }
 }

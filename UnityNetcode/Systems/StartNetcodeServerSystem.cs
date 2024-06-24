@@ -75,6 +75,7 @@
                 transport.ConnectionData.Port = (ushort)port;
                 
                 //start server
+                manager.OnClientConnectedCallback += ClientConnected_Callback;
                 var connected = request.AllowServerClient 
                     ? manager.StartHost() 
                     : manager.StartServer();
@@ -96,6 +97,11 @@
                 
                 _networkAspect.StartNetwork.Del(entity);
             }
+        }
+
+        private void ClientConnected_Callback(ulong id)
+        {
+            GameLog.Log($"Client connected with | id: {id}");
         }
 
     }
