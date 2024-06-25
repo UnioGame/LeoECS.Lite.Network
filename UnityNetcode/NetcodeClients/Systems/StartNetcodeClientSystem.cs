@@ -67,33 +67,36 @@
                         .InitializeSelf.GetOrAddComponent(entity);
                     continue;
                 }
-                
-                ref var managerComponent = ref _netcodeAspect.Manager.Get(netcodeEntity);
-                ref var transportComponent = ref _netcodeAspect.Transport.Get(netcodeEntity);
 
-                var manager = managerComponent.Value;
-                var transport = transportComponent.Value;
-
-                if (manager.IsServer || manager.IsClient)
+                if (request.StartNetwork)
                 {
-                    continue;
+                    ref var managerComponent = ref _netcodeAspect.Manager.Get(netcodeEntity);
+                    ref var transportComponent = ref _netcodeAspect.Transport.Get(netcodeEntity);
+
+                    var manager = managerComponent.Value;
+                    var transport = transportComponent.Value;
+
+                    if (manager.IsServer || manager.IsClient)
+                    {
+                        continue;
+                    }
+
+                    transport.ConnectionData.Address = address;
+                    transport.ConnectionData.Port = (ushort)port;
+
+                    //start server
+                    var result = manager.StartClient();
+                    manager.OnTransportFailure += TransportFailed_Callback;
+                    manager.OnConnectionEvent += ConnectionEvent_Callback;
+                    if (!result)
+                    {
+                        GameLog.LogError($"Failed to start client for address: {address} | port: {port}");
+                        continue;
+                    }
+
+                    GameLog.Log($"Successfully started client for address: {address} | port: {port}");
                 }
 
-                transport.ConnectionData.Address = address;
-                transport.ConnectionData.Port = (ushort)port;
-
-                //start server
-                var result = manager.StartClient();
-                manager.OnTransportFailure += TransportFailed_Callback;
-                manager.OnConnectionEvent += ConnectionEvent_Callback;
-                if (!result)
-                {
-                    GameLog.LogError($"Failed to start client for address: {address} | port: {port}");
-                    continue;
-                }
-                
-                GameLog.Log($"Successfully started client for address: {address} | port: {port}");
-                
                 var packedNetEntity = _world.PackEntity(netcodeEntity);
                 ref var linkComponent = ref _networkAspect.NetworkLink.GetOrAddComponent(entity);
                 linkComponent.Value = packedNetEntity;
