@@ -8,7 +8,6 @@
     using Leopotam.EcsLite;
     using Shared.Aspects;
     using Shared.Components;
-    using Shared.Data;
     using UniGame.AddressableTools.Runtime;
     using UniGame.LeoEcs.Bootstrap.Runtime.Attributes;
     using UniGame.LeoEcs.Shared.Extensions;
@@ -36,13 +35,11 @@
         private EcsFilter _netFilter;
         
         private UnityNetcodeSettings _netcodeSettings;
-        private EcsNetworkSettings _networkSettings;
         private bool _isLoading;
 
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
-            _networkSettings = _world.GetGlobal<EcsNetworkSettings>();
             _netcodeSettings = _world.GetGlobal<UnityNetcodeSettings>();
             
             _filter = _world

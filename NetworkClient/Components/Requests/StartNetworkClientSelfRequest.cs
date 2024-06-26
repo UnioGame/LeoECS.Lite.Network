@@ -18,6 +18,6 @@
     {
         public string Address;
         public int Port;
-        public bool IsHost;
+        public bool StartNetwork;
     }
 }

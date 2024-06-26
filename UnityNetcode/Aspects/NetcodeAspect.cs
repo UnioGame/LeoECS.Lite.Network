@@ -3,7 +3,6 @@
     using System;
     using Componenets.Requests;
     using Components;
-    using global::UnityNetcode.Componenets.Requests;
     using Leopotam.EcsLite;
     using Shared.Components;
     using UniGame.LeoEcs.Bootstrap.Runtime.Abstract;
@@ -37,6 +36,5 @@
         //requests
         //initialize netcode and create new entity if not exists
         public EcsPool<InitializeNetcodeSelfRequest> InitializeSelf;
-        public EcsPool<ConnectToNetcodeSelfRequest> Connect;
     }
 }
