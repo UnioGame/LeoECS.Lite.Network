@@ -21,6 +21,8 @@
         public ushort serverPort = 0;
         [TitleGroup(ServerSettings)]
         public int networkTickRate = 20;
+        [TitleGroup(ServerSettings)]
+        public bool AutoStartServer;
         
         [TitleGroup(CommonSettings)]
         [Range(1,50)]
@@ -45,11 +47,15 @@
         public bool useTickSendingOnClient = false;
         [TitleGroup(ClientSettings)]
         public NetworkMessageTarget defaultClientTarget = NetworkMessageTarget.Server;
+
+        [TitleGroup(ClientSettings)]
+        public bool AutoStartClient;
         
         [TitleGroup(TypesSettings)]
         [PropertySpace(8)]
         [HideLabel]
         [InlineProperty]
         public NetworkData networkData = new();
+        
     }
 }
