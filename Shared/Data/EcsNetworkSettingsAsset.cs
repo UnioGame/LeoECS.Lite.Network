@@ -8,7 +8,7 @@
     using Unity.Collections.LowLevel.Unsafe;
     using UnityEngine;
     using System;
-    using UnityCodeGen;
+    //using UnityCodeGen;
 
 #if UNITY_EDITOR
     using UnityEditor;
@@ -25,7 +25,7 @@
         
         private Dictionary<Type,bool> cachedTypes = new();
         
-#if UNITY_EDITOR
+/*#if UNITY_EDITOR
 
         
         [Button]
@@ -118,6 +118,6 @@
 
             return typeItems;
         }
-#endif
+#endif*/
     }
 }
