@@ -8,7 +8,6 @@
     using Unity.Collections.LowLevel.Unsafe;
     using UnityEngine;
     using System;
-    using UniGame.Tools;
     using UnityCodeGen;
 
 #if UNITY_EDITOR
