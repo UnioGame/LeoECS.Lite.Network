@@ -31,6 +31,7 @@
     {
         public int TypeId;
         public int Size;
+        [ReadOnly]
         public NativeSlice<byte> Component;
     }
 }
