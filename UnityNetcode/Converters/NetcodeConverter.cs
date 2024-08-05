@@ -1,9 +1,10 @@
 ﻿namespace Game.Ecs.Network.UnityNetcode.Converters
 {
     using System;
-    using Componenets;
+    using Components;
     using Leopotam.EcsLite;
     using NetworkCommands.Components;
+    using NetworkCommands.Data;
     using Shared.Components;
     using UniGame.LeoEcs.Converter.Runtime;
     using UniGame.LeoEcs.Shared.Extensions;
@@ -33,6 +34,8 @@
         {
             ref var networkTime = ref world.GetOrAddComponent<NetworkTimeComponent>(entity);
             ref var networkManagerComponent = ref world.GetOrAddComponent<NetcodeManagerComponent>(entity);
+            ref var netcodeAgentComponent = ref world.GetOrAddComponent<NetcodeAgentComponent>(entity);
+            ref var netcodeStatusComponent = ref world.GetOrAddComponent<NetcodeStatusComponent>(entity);
             ref var unityTransportComponent = ref world.GetOrAddComponent<UnityTransportComponent>(entity);
             ref var targetComponent = ref world.GetOrAddComponent<NetcodeSharedRPCComponent>(entity);
             ref var networkSourceComponent = ref world.GetOrAddComponent<NetworkSourceComponent>(entity);
@@ -43,6 +46,10 @@
             unityTransportComponent.Value = unityTransport;
             networkManagerComponent.Value = networkManager;
             targetComponent.Value = target;
+
+            netcodeStatusComponent.Status = ConnectionStatus.Disconnected;
+            netcodeStatusComponent.IsConnected = false;
+            netcodeStatusComponent.IsInRoom = false;
             
             networkTime.Time = networkManager.ServerTime.TimeAsFloat;
             networkTime.Tick = networkManager.ServerTime.Tick;

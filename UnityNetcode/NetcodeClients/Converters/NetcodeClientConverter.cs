@@ -9,7 +9,6 @@
     using Unity.IL2CPP.CompilerServices;
     using Unity.Netcode;
     using UnityEngine;
-    using Object = UnityEngine.Object;
 
     /// <summary>
     /// convert GameObject to NetworkClientComponent
@@ -20,22 +19,15 @@
     [Serializable]
     public class NetcodeClientConverter : GameObjectConverter
     {
-        public bool makeImmortal = true;
-        
         protected override void OnApply(GameObject target, EcsWorld world, int entity)
         {
             var networkObject = target.GetComponent<NetworkObject>();
             ref var networkObjectComponent = ref world.AddComponent<NetcodeClientObjectComponent>(entity);
             ref var networkClientComponent = ref world.AddComponent<NetworkClientComponent>(entity);
             ref var networkConnectionTypeComponent = ref world.AddComponent<NetworkConnectionTypeComponent>(entity);
-            ref var networkAddressComponent = ref world.AddComponent<NetworkAddressComponent>(entity);
             ref var networkClientIdComponent = ref world.AddComponent<NetworkClientIdComponent>(entity);
             
             networkObjectComponent.Value = networkObject;
-            
-            if(makeImmortal) Object.DontDestroyOnLoad(target);
         }
-
-        
     }
 }

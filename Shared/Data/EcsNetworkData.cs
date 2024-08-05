@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using Unity.Collections;
 
     [Serializable]
     public class EcsNetworkData

@@ -7,9 +7,7 @@
     using Shared.Aspects;
     using Shared.Components;
     using Shared.Components.Requests;
-    using UniCore.Runtime.ProfilerTools;
     using UniGame.LeoEcs.Bootstrap.Runtime.Attributes;
-    using UniGame.LeoEcs.Shared.Extensions;
 
     /// <summary>
     /// if get request to start network and netcode not initialized - start netcode

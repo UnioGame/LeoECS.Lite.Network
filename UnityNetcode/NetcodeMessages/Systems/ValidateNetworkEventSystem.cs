@@ -1,19 +1,12 @@
 ﻿namespace Game.Ecs.Network.UnityNetcode.NetcodeMessages.Systems
 {
     using System;
-    using Aspects;
-    using Componenets;
-    using Components;
     using Leopotam.EcsLite;
+    using NetworkCommands.Aspects;
     using NetworkCommands.Components;
     using NetworkCommands.Components.Requests;
-    using NetworkCommands.Data;
-    using NetworkCommands.Systems;
     using Shared.Aspects;
-    using Shared.Components;
     using UniGame.LeoEcs.Bootstrap.Runtime.Attributes;
-    using UniGame.LeoEcs.Shared.Extensions;
-    using Unity.Collections;
     using UnityNetcode.Aspects;
 
     /// <summary>
@@ -32,7 +25,7 @@
     {
         private NetworkAspect _networkAspect;
         private NetcodeAspect _netcodeAspect;
-        private NetcodeMessageAspect _messageAspect;
+        private NetworkMessageAspect _networkMessageAspect;
         
         private EcsWorld _world;
         
@@ -54,7 +47,7 @@
         {
             foreach (var valueEntity in _networkValueFilter)
             {
-                _messageAspect.SerializeEntity.Add(valueEntity);
+                _networkMessageAspect.SerializeEntity.Add(valueEntity);
             }
         }
     }

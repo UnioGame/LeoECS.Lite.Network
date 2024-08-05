@@ -19,10 +19,10 @@
         [Il2CppSetOption(Option.DivideByZeroChecks, false)]
 #endif
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ref TComponent AddNetworkEvent<TComponent>(this EcsPool<TComponent> pool,int entity, NetworkMessageTarget target)
-            where TComponent : struct
+        public static ref TComponent AddNetworkMessage<TComponent>(this EcsPool<TComponent> pool, 
+            NetworkMessageTarget target, ulong targetId) where TComponent : struct
         {
-            return ref messageTools.AddNetworkEvent<TComponent>(entity,target);
+            return ref messageTools.AddNetworkMessage<TComponent>(target, targetId);
         }
         
 #if ENABLE_IL2CPP
@@ -31,10 +31,10 @@
         [Il2CppSetOption(Option.DivideByZeroChecks, false)]
 #endif
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ref TComponent AddNetworkEvent<TComponent>(this EcsPool<TComponent> pool,int entity)
+        public static ref TComponent AddNetworkMessage<TComponent>(this EcsPool<TComponent> pool)
             where TComponent : struct
         {
-            return ref messageTools.AddNetworkEvent<TComponent>(entity);
+            return ref messageTools.AddNetworkMessage<TComponent>();
         }
         
 #if ENABLE_IL2CPP
@@ -43,10 +43,10 @@
         [Il2CppSetOption(Option.DivideByZeroChecks, false)]
 #endif
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ref TComponent AddNetworkEvent<TComponent>(this EcsWorld world,int entity, NetworkMessageTarget target)
+        public static ref TComponent AddNetworkMessage<TComponent>(this EcsWorld world, NetworkMessageTarget target) 
             where TComponent : struct
         {
-            return ref messageTools.AddNetworkEvent<TComponent>(entity,target);
+            return ref messageTools.AddNetworkMessage<TComponent>(target);
         }
         
 #if ENABLE_IL2CPP
@@ -55,10 +55,10 @@
         [Il2CppSetOption(Option.DivideByZeroChecks, false)]
 #endif
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ref TComponent AddNetworkEvent<TComponent>(this EcsWorld world,int entity)
+        public static ref TComponent AddNetworkMessage<TComponent>(this EcsWorld world)
             where TComponent : struct
         {
-            return ref messageTools.AddNetworkEvent<TComponent>(entity);
+            return ref messageTools.AddNetworkMessage<TComponent>();
         }
         
 #if ENABLE_IL2CPP

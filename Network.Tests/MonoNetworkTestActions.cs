@@ -100,7 +100,7 @@ namespace Game.Ecs.Network.Network.Tests
             };
             var start = writer.GetSpan().Length;
             //var size = Unsafe.SizeOf<TemplateSerializeType>();
-            MemoryPackSerializer.Serialize<TemplateSerializeType>(value, MemoryPackSerializerOptions.Utf16);
+            MemoryPackSerializer.Serialize(writer, value, MemoryPackSerializerOptions.Utf16);
             return writer.GetSpan().Length - start;
         }
         

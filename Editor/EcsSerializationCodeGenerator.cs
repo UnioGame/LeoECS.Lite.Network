@@ -76,11 +76,12 @@ namespace UniGame.Generated.EcsSerialization
             
             context.AddCode(FileName, resultTemplate);
 
-            foreach (var networkAsset in AssetEditorTools.GetAssets<EcsNetworkSettingsAsset>())
+            AssetDatabase.SaveAssets();
+            /*foreach (var networkAsset in AssetEditorTools.GetAssets<EcsNetworkSettingsAsset>())
             {
                 networkAsset.BakeNetworkData();
                 networkAsset.MarkDirty();
-            }
+            }*/
         }
     }
 

@@ -1,7 +1,6 @@
 ﻿namespace Game.Ecs.Network.Shared.Components
 {
     using System;
-    using UnityEngine.Serialization;
 
     /// <summary>
     /// information about active network connection

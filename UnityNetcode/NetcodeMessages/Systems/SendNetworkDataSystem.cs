@@ -3,7 +3,6 @@
     using System;
     using System.Buffers;
     using Aspects;
-    using Componenets;
     using Components;
     using Extensions;
     using Leopotam.EcsLite;
@@ -16,6 +15,7 @@
     using UniGame.LeoEcs.Bootstrap.Runtime.Attributes;
     using UniGame.LeoEcs.Shared.Extensions;
     using UnityNetcode.Aspects;
+    using UnityNetcode.Components;
 
     /// <summary>
     /// send message with base rpc channel
@@ -75,7 +75,8 @@
             var transferEntity = _transferFilter.First();
             if (transferEntity < 0) return;
             
-            ref var transferComponent = ref _messageAspect.Transfer.Get(transferEntity);
+            ref var transferComponent = ref _networkMessageAspect.Transfer.Get(transferEntity);
+            ref var targetComponent = ref _networkMessageAspect.Target.Get(transferEntity);
             ref var seializationResult = ref _messageAspect.SerializationResult.Get(transferEntity);
             
             var netcodeEntity = _netcodeFilter.First();
@@ -98,7 +99,7 @@
                 .Slice(0,size)
                 .CopyTo(targetArray);
             
-            var target = channelObject.GetRpcTarget(transferComponent.Target);
+            var target = channelObject.GetRpcTarget(targetComponent.Value, targetComponent.Id);
             channelObject.SendRPC(targetArray,size,target);
             
             ArrayPool<byte>.Shared.Return(targetArray);
@@ -106,7 +107,7 @@
             var sendEvent = _world.NewEntity();
             ref var sendComponent = ref _networkMessageAspect.DataSendEvent.Add(sendEvent);
             sendComponent.Size = size;
-            sendComponent.TargetType = transferComponent.Target;
+            sendComponent.TargetType = targetComponent.Value;
         }
     }
 }

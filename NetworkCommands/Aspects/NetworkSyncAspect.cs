@@ -18,7 +18,6 @@
     [Serializable]
     public class NetworkSyncAspect : EcsAspect
     {
-        public EcsPool<NetworkIdComponent> Id;
         public EcsPool<NetworkSyncTimeComponent> SyncTime;
     }
 }

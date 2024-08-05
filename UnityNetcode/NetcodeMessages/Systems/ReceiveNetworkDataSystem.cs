@@ -6,6 +6,7 @@
     using Leopotam.EcsLite;
     using MemoryPack.Compression;
     using Network.Serializer;
+    using NetworkCommands.Aspects;
     using NetworkCommands.Components;
     using NetworkCommands.Data;
     using Shared.Aspects;
@@ -33,6 +34,7 @@
         private NetworkAspect _networkAspect;
         private NetcodeAspect _netcodeAspect;
         private NetcodeMessageAspect _messageAspect;
+        private NetworkMessageAspect _networkMessageAspect;
 
         private EcsWorld _world;
         private EcsFilter _receiveFilter;
@@ -98,13 +100,14 @@
                     return;
                 }
 #endif
-                ref var receiveComponent = ref _messageAspect.ReceiveResult.Add(entity);
+                ref var receiveComponent = ref _networkMessageAspect.ReceiveResult.Add(entity);
                 
                 receiveComponent.RawData = buffer;
                 receiveComponent.Tick = networkHeader.Tick;
                 receiveComponent.Time = networkHeader.Time;
                 receiveComponent.Count = syncCount;
                 receiveComponent.Size = dataLength;
+                receiveComponent.Sender = dataComponent.Sender;
                 receiveComponent.Data = new NativeArray<ReceiveEntityData>(syncCount, Allocator.Temp);
                 receiveComponent.Components = new NativeArray<ReceiveComponentData>(totalComponents, Allocator.Temp);
 
@@ -150,7 +153,7 @@
                         var componentLen = componentHeader.Size;
                         offset += componentLen;
 #if UNITY_EDITOR
-                        var typeFound =_networkData.TryGetServerType(typeId, out var syncType);
+                        var typeFound = _networkData.TryGetServerType(typeId, out var syncType);
                         if (!typeFound)
                         {
                             Debug.LogError($"ReceiveNetworkDataSystem: component type with id {typeId} not found in types map!");

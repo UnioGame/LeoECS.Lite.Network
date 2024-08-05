@@ -18,5 +18,6 @@
     {
         public string Address;
         public int Port;
+        public bool StartNetwork;
     }
 }

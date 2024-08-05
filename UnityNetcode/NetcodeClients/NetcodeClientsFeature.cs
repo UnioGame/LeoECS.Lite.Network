@@ -7,7 +7,6 @@
     using Shared.Components.Events;
     using Systems;
     using UniGame.LeoEcs.Bootstrap.Runtime;
-    using UnityNetcode.Systems;
 
     [Serializable]
     public class NetcodeClientsFeature : LeoEcsFeature

@@ -2,7 +2,6 @@
 {
     using System;
     using Data;
-    using UnityEngine.Serialization;
 
     /// <summary>
     /// handle for base rpc calls

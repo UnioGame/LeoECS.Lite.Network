@@ -8,8 +8,6 @@
     using NetworkCommands.Data;
     using Unity.Collections;
     using Unity.Collections.LowLevel.Unsafe;
-    using Unity.IL2CPP.CompilerServices;
-    using UnityEngine.Serialization;
 
 #if ENABLE_IL2CPP
     [Il2CppSetOption(Option.NullChecks, false)]
@@ -80,13 +78,14 @@
 
                     networkWriter.WriteData(ref componentHeader, offset);
                     offset += size + headerSize;
+                    break;
                 }
 
                 if (syncComponentsCount == 0)
                     continue;
                 
                 currentHash = ByteHashCalculator.ComputeHash(ref networkWriter,itemOffset+entityHeaderSize,offset);
-                var isSameValues =  (useHashFiltering && previousHash == currentHash);
+                var isSameValues =  useHashFiltering && previousHash == currentHash;
                 var isValueChanged = forceSerialize || !isSameValues;
                 
                 var entityHeader = new NetworkEntityHeader()

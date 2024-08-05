@@ -2,7 +2,6 @@
 {
     using System;
     using Aspects;
-    using Componenets;
     using Leopotam.EcsLite;
     using Shared.Aspects;
     using Shared.Components;
@@ -11,6 +10,7 @@
     using Unity.Collections;
     using Unity.Netcode;
     using UnityNetcode.Aspects;
+    using UnityNetcode.Components;
 
     /// <summary>
     /// update netcode clients list
@@ -29,6 +29,7 @@
         private NetcodeAspect _netcodeAspect;
         private NetcodeClientAspect _clientAspect;
         private NetworkClientAspect _networkClientAspect;
+        private NetcodePlayerAspect _netcodePlayerAspect;
         
         private EcsWorld _world;
         private EcsFilter _managerFilter;
@@ -70,13 +71,14 @@
             foreach (var newClientEntity in _newClients)
             {
                 ref var gameObjectComponent = ref _clientAspect.GameObject.Get(newClientEntity);
-                ref var objectComponent = ref _clientAspect.ClientObject.Get(newClientEntity);
-                ref var idComponent = ref _networkClientAspect.ClientId.Get(newClientEntity);
-                ref var connectionComponent = ref _networkClientAspect.Connection.Get(newClientEntity);
+                ref var objectComponent = ref _clientAspect.ClientObject.GetOrAddComponent(newClientEntity);
+                ref var idComponent = ref _networkClientAspect.ClientId.GetOrAddComponent(newClientEntity);
+                ref var connectionComponent = ref _networkClientAspect.Connection.GetOrAddComponent(newClientEntity);
                 
                 ref var linkComponent = ref _networkClientAspect.NetworkLink.Add(newClientEntity);
                 ref var connectedSelfEvent = ref _networkClientAspect.Connected.Add(newClientEntity);
-                
+
+                objectComponent.Value = gameObjectComponent.Value.GetComponent<NetworkObject>();
                 linkComponent.Value = _world.PackEntity(managerEntity);
                 var networkClient = objectComponent.Value;
 
@@ -90,9 +92,10 @@
                 idComponent.Id = id;
                 
                 _clients[id] = _world.PackEntity(newClientEntity);
-
                 if (networkClient.IsLocalPlayer)
+                {
                     _networkClientAspect.Local.Add(newClientEntity);
+                }
             }
 
             _removedIds.Clear();

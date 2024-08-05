@@ -1,7 +1,6 @@
 ﻿namespace Game.Ecs.Network.Shared.Components
 {
     using System;
-    using UnityEngine.Serialization;
 
     /// <summary>
     /// address of network object

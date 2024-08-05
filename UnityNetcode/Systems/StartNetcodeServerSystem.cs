@@ -58,7 +58,10 @@
                 var port = request.Port;
 
                 var netcodeEntity = _netFilter.First();
-                if(netcodeEntity < 0) continue;
+                if (netcodeEntity < 0)
+                {
+                    continue;
+                }
       
                 ref var managerComponent = ref _netcodeAspect.Manager.Get(netcodeEntity);
                 ref var transportComponent = ref _netcodeAspect.Transport.Get(netcodeEntity);
@@ -72,6 +75,7 @@
                 transport.ConnectionData.Port = (ushort)port;
                 
                 //start server
+                manager.OnClientConnectedCallback += ClientConnected_Callback;
                 var connected = request.AllowServerClient 
                     ? manager.StartHost() 
                     : manager.StartServer();
@@ -81,6 +85,9 @@
                     GameLog.LogError($"Failed to start host for address: {address} | port: {port}");
                     continue;
                 }
+
+                var mode = request.AllowServerClient ? "host" : "server";
+                GameLog.Log($"Successfully started {mode} for address: {address} | port: {port}");
                 
                 ref var connectedEvent = ref _networkAspect.ServerConnected.Add(netcodeEntity);
                 
@@ -90,6 +97,11 @@
                 
                 _networkAspect.StartNetwork.Del(entity);
             }
+        }
+
+        private void ClientConnected_Callback(ulong id)
+        {
+            GameLog.Log($"Client connected with | id: {id}");
         }
 
     }

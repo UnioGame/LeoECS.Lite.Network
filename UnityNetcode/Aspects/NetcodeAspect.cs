@@ -1,11 +1,9 @@
 ﻿namespace Game.Ecs.Network.UnityNetcode.Aspects
 {
     using System;
-    using Componenets;
     using Componenets.Requests;
+    using Components;
     using Leopotam.EcsLite;
-    using NetcodeMessages.Components;
-    using Shared.Aspects;
     using Shared.Components;
     using UniGame.LeoEcs.Bootstrap.Runtime.Abstract;
     using UniGame.LeoEcsLite.LeoEcs.Shared.Components;
@@ -23,13 +21,16 @@
     [Serializable]
     public class NetcodeAspect : EcsAspect
     {
-        public NetworkAspect Network;
-        
         public EcsPool<NetcodeManagerComponent> Manager;
         public EcsPool<NetcodeSharedRPCComponent> RPCAsset;
         public EcsPool<UnityTransportComponent> Transport;
         public EcsPool<LifeTimeComponent> LifeTime;
         public EcsPool<NetworkTimeComponent> NetworkTime;
+        
+        public EcsPool<NetcodeAgentComponent> Agent;
+        public EcsPool<NetcodeStatusComponent> Status;
+
+        public EcsPool<NetcodeMessageSenderId> SenderId;
         
         public EcsPool<NetworkConnectionTypeComponent> ConnectionType;
         //requests

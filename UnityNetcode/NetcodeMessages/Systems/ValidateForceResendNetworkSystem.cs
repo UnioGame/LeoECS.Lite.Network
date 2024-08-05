@@ -1,19 +1,10 @@
 ﻿namespace Game.Ecs.Network.UnityNetcode.NetcodeMessages.Systems
 {
     using System;
-    using Aspects;
-    using Componenets;
-    using Components;
     using Leopotam.EcsLite;
     using NetworkCommands.Aspects;
-    using NetworkCommands.Components;
     using NetworkCommands.Components.Requests;
-    using Shared.Aspects;
-    using Shared.Components;
-    using Shared.Data;
     using UniGame.LeoEcs.Bootstrap.Runtime.Attributes;
-    using UniGame.LeoEcs.Shared.Extensions;
-    using UnityNetcode.Aspects;
 
     /// <summary>
     /// send message with base rpc channel

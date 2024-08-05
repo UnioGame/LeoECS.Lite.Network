@@ -2,7 +2,6 @@
 {
     using System;
     using Aspects;
-    using Componenets;
     using EcsThreads.Systems;
     using Leopotam.EcsLite;
     using Network.Serializer;
@@ -18,6 +17,7 @@
     using Unity.Collections;
     using Unity.Mathematics;
     using UnityNetcode.Aspects;
+    using UnityNetcode.Components;
 
     /// <summary>
     /// send message with base rpc channel
@@ -114,7 +114,7 @@
             foreach (var requestEntity in _serializeFilter)
             {
                 serializeRequested = true;
-                ref var request = ref _netcodeMessageAspect.SerializeEntity.Get(requestEntity);
+                ref var request = ref _networkMessageAspect.SerializeEntity.Get(requestEntity);
                 forceSerialize = forceSerialize || request.Force;
             }
             

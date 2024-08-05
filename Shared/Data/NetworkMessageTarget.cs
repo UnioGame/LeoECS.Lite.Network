@@ -10,5 +10,6 @@
         All,
         Me,
         NotMe,
+        Specified,
     }
 }

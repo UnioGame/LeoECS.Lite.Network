@@ -1,7 +1,6 @@
 ﻿namespace Game.Ecs.Network.Shared.Components.Requests
 {
     using System;
-    using UnityEngine.Serialization;
 
     /// <summary>
     /// connect to network as host

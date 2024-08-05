@@ -1,4 +1,4 @@
-﻿namespace Game.Ecs.Network.UnityNetcode.Componenets
+﻿namespace Game.Ecs.Network.UnityNetcode.Components
 {
     using System;
     using Unity.Netcode.Transports.UTP;

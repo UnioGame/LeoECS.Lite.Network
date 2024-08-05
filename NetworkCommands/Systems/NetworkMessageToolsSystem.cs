@@ -14,7 +14,8 @@
     using UniGame.LeoEcs.Bootstrap.Runtime.Attributes;
     using UniGame.LeoEcs.Shared.Extensions;
     using Unity.Collections;
-    
+    using UnityEngine;
+
     /// <summary>
     /// network commands tools
     /// </summary>
@@ -133,10 +134,11 @@
         [Il2CppSetOption(Option.DivideByZeroChecks, false)]
 #endif
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ref TComponent AddNetworkEvent<TComponent>(int entity)
+        public ref TComponent AddNetworkMessage<TComponent>()
             where TComponent : struct
         {
-            return ref AddNetworkComponent<TComponent>(entity,true);
+            var messageEntity = world.NewEntity();
+            return ref AddNetworkComponent<TComponent>(messageEntity,true);
         }
         
 #if ENABLE_IL2CPP
@@ -145,10 +147,11 @@
         [Il2CppSetOption(Option.DivideByZeroChecks, false)]
 #endif
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ref TComponent AddNetworkEvent<TComponent>(int entity, NetworkMessageTarget target)
+        public ref TComponent AddNetworkMessage<TComponent>(NetworkMessageTarget target, ulong targetId = default)
             where TComponent : struct
         {
-            return ref AddNetworkComponent<TComponent>(entity, target,true);
+            var messageEntity = world.NewEntity();
+            return ref AddNetworkComponent<TComponent>(messageEntity, target,true, targetId);
         }
         
 #if ENABLE_IL2CPP
@@ -170,9 +173,15 @@
         [Il2CppSetOption(Option.DivideByZeroChecks, false)]
 #endif
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ref TComponent AddNetworkComponent<TComponent>(int entity, NetworkMessageTarget target,bool markAsEvent = false)
-            where TComponent : struct
+        public ref TComponent AddNetworkComponent<TComponent>(int entity, NetworkMessageTarget target,
+            bool markAsEvent = false, ulong targetId = default) where TComponent : struct
         {
+#if UNITY_EDITOR || GAME_DEBUG
+            
+            GameLog.Log($"AddNetworkComponent entity: {entity} | type: {typeof(TComponent).Name} | event: {markAsEvent}");
+            
+#endif
+            
 #if UNITY_EDITOR || GAME_DEBUG
             var typeMap = isServer ? networkData.TypesMap: networkData.ClientTypeMap;
             var targetType = typeof(TComponent);
@@ -187,8 +196,11 @@
                 ref var networkId = ref messageAspect.NetworkId.Add(entity);
                 networkId.Id =  isServer ? _idCounter++ : _clientIdCounter--;
             }
+
+            ref var targetComponent = ref messageAspect.Target.Add(entity);
+            targetComponent.Id = targetId;
+            targetComponent.Value = target;
             
-            //ref var targetComponent = ref messageAspect.Target.GetOrAddComponent(entity);
             if (markAsEvent)
             {
                 ref var eventComponent = ref messageAspect.NetworkEvent.GetOrAddComponent(entity);

@@ -9,7 +9,6 @@
     using NetcodeMessages;
     using NetworkCommands.Data;
     using Profiler;
-    using Shared;
     using Shared.Components.Events;
     using Shared.Components.Requests;
     using Shared.Data;
